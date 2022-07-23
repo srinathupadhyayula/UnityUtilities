@@ -6,11 +6,18 @@ using UnityEditor.SceneManagement;
 using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Utilities.Types;
+using Utilities.Types.Layer;
 using Object = UnityEngine.Object;
 
-namespace Utilities.EditorWindow
+namespace Utilities.EditorWindow.Layer
 {
+    /// <summary>
+    /// Custom editor window for the LayerManager tool
+    /// </summary>
+    /// <remarks>
+    /// <para>This class is heavily based on a similar class in <see cref="https://github.com/YondernautsGames">YondernautGames</see>'
+    /// <see cref="https://github.com/YondernautsGames/LayerManager">LayerManager</see> repository.</para>
+    /// </remarks>
     public class LayerManager : UnityEditor.EditorWindow
     {
         private const string k_instructions = @"Instructions:

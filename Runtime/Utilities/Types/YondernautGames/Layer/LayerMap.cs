@@ -1,7 +1,14 @@
 ﻿using UnityEngine;
 
-namespace Utilities.Types
+namespace Utilities.Types.Layer
 {
+    /// <summary>
+    /// LayerMap ScriptableObject that wraps an int array of layers
+    /// </summary>
+    /// <remarks>
+    /// <para>This class is heavily based on a similar class in <see cref="https://github.com/YondernautsGames">YondernautGames</see>'
+    /// <see cref="https://github.com/YondernautsGames/LayerManager">LayerManager</see> repository.</para>
+    /// </remarks>
     public class LayerMap : ScriptableObject
     {
         [SerializeField] private int[] m_map;

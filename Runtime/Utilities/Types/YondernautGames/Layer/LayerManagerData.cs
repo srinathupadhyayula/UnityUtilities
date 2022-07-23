@@ -2,8 +2,15 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace Utilities.Types
+namespace Utilities.Types.Layer
 {
+    /// <summary>
+    /// LayerManagerData ScriptableObject that holds data relevant to the LayerManager
+    /// </summary>
+    /// <remarks>
+    /// <para>This class is heavily based on a similar class in <see cref="https://github.com/YondernautsGames">YondernautGames</see>'
+    /// <see cref="https://github.com/YondernautsGames/LayerManager">LayerManager</see> repository.</para>
+    /// </remarks>
     public class LayerManagerData : ScriptableObject
     {
         // Map array hidden from public access
@@ -32,27 +39,27 @@ namespace Utilities.Types
 
         public class SerializedLayerMapEntry
         {
-            private LayerManagerData m_data;
+            private readonly LayerManagerData m_data;
 
-            public SerializedProperty SerializedProperty
+            private SerializedProperty Property
             {
                 get;
-                private set;
+                set;
             }
 
             public SerializedLayerMapEntry(LayerManagerData data, int index)
             {
                 m_data = data;
-                SerializedProperty = data.LayerMapProperty.GetArrayElementAtIndex(index);
+                Property = data.LayerMapProperty.GetArrayElementAtIndex(index);
             }
 
             public string Name
             {
-                get { return SerializedProperty.FindPropertyRelative("name").stringValue; }
+                get { return Property.FindPropertyRelative("name").stringValue; }
                 set
                 {
                     Undo.RecordObject(m_data, "Change Layer Name");
-                    SerializedProperty.FindPropertyRelative("name").stringValue = value;
+                    Property.FindPropertyRelative("name").stringValue = value;
                     // if empty, wipe dependent redirects
                     if (string.IsNullOrEmpty (value))
                     {
@@ -71,12 +78,12 @@ namespace Utilities.Types
 
             public int Redirect
             {
-                get { return SerializedProperty.FindPropertyRelative("redirect").intValue; }
+                get { return Property.FindPropertyRelative("redirect").intValue; }
                 set
                 {
                     Undo.RecordObject(m_data, "Redirect Layer");
                     int undo = Undo.GetCurrentGroup();
-                    SerializedProperty.FindPropertyRelative("redirect").intValue = value;
+                    Property.FindPropertyRelative("redirect").intValue = value;
                     // If check dependent redirects and set to new value
                     if (value == -1)
                     {
@@ -90,7 +97,7 @@ namespace Utilities.Types
                                 if (entry.Redirect == OldIndex)
                                 {
                                     Undo.RecordObject(m_data, "Redirect Layer");
-                                    entry.SerializedProperty.FindPropertyRelative("redirect").intValue = -1;
+                                    entry.Property.FindPropertyRelative("redirect").intValue = -1;
                                 }
                             }
                         }
@@ -105,7 +112,7 @@ namespace Utilities.Types
                             if (entry.Redirect == OldIndex)
                             {
                                 Undo.RecordObject(m_data, "Redirect Layer");
-                                entry.SerializedProperty.FindPropertyRelative("redirect").intValue = value;
+                                entry.Property.FindPropertyRelative("redirect").intValue = value;
                             }
                         }
                     }
@@ -116,12 +123,12 @@ namespace Utilities.Types
 
             public string OldName
             {
-                get { return SerializedProperty.FindPropertyRelative("oldName").stringValue; }
+                get { return Property.FindPropertyRelative("oldName").stringValue; }
             }
 
             public int OldIndex
             {
-                get { return SerializedProperty.FindPropertyRelative("oldIndex").intValue; }
+                get { return Property.FindPropertyRelative("oldIndex").intValue; }
             }
 
             public bool Valid

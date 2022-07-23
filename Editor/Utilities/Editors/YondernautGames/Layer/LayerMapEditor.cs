@@ -1,9 +1,17 @@
 ﻿using UnityEditor;
 using UnityEngine;
 using Utilities.Types;
+using Utilities.Types.Layer;
 
-namespace Utilities.Editors
+namespace Utilities.Editors.Layer
 {
+    /// <summary>
+    /// Custom inspector for the LayerMap class
+    /// </summary>
+    /// <remarks>
+    /// <para>This class is heavily based on a similar class in <see cref="https://github.com/YondernautsGames">YondernautGames</see>'
+    /// <see cref="https://github.com/YondernautsGames/LayerManager">LayerManager</see> repository.</para>
+    /// </remarks>
     [CustomEditor(typeof(LayerMap))]
     public class LayerMapEditor : Editor
     {
