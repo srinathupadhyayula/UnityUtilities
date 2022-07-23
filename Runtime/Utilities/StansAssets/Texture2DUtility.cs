@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Utilities.Extensions;
 
 namespace Utilities
 {
@@ -46,7 +47,7 @@ namespace Utilities
         /// <param name="cacheGeneratedImage">When set to `true` the generated image is cached.</param>
         public static Texture2D MakePlainColorImage(string colorHtmlString, int width = 1, int height = 1, bool cacheGeneratedImage = true)
         {
-            Color color = ColorHelper.MakeColorFromHtml(colorHtmlString);
+            Color color = colorHtmlString.MakeColorFromHtml();
             return MakePlainColorImage(color, width, height, cacheGeneratedImage);
         }
 
